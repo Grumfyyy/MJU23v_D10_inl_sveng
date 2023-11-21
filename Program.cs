@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary;
+        static List<SweEngGloss> dictionary;    //FIXME: lägg till så att dictionary vid start är inte null.
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -45,16 +45,14 @@
                 }
                 else if (command == "list")
                 {
-                    //FIXME : Omvandla koden nedan i 'if'-satsen till en metod, ListGloss()
                     ListGlossary();
                 }
                 else if (command == "new")
                 {
-                    //FIXME: Om man nu har all data, så kan man ha en metod där, svenska och engelska ordet skickas till en metod, AddNewGloss(string swedish, string english)
 
                     if (argument.Length == 3)
                     {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+                        AddNewGlossToDictionary(argument[1], argument[2]);
                     }
                     else if(argument.Length == 1)
                     {
@@ -62,7 +60,8 @@
                         string swedish_word = Console.ReadLine();
                         Console.Write("Write word in English: ");
                         string english_word = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(swedish_word, english_word));  
+
+                        AddNewGlossToDictionary(swedish_word, english_word); 
                     }
                 }
                 else if (command == "delete")
@@ -165,6 +164,11 @@
             {
                 Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
             }
+        }
+        
+        private static void AddNewGlossToDictionary(string swedish_word, string english_word)
+        {
+            dictionary.Add(new SweEngGloss(swedish_word, english_word));
         }
     }
 }
