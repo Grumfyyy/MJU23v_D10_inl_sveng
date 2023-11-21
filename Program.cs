@@ -165,9 +165,16 @@
 
         private static void ListGlossary()
         {
-            foreach (SweEngGloss gloss in dictionary)
+            try
             {
-                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                foreach (SweEngGloss gloss in dictionary)
+                {
+                    Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                }
+            }
+            catch (NullReferenceException error)
+            {
+                Console.WriteLine($"> [NullReferenceException] : dictionary->{error.Message}");
             }
         }
         
@@ -179,9 +186,9 @@
                 {
                     dictionary.Add(sweEngGloss);
                 }
-                catch (NullReferenceException e)
+                catch (NullReferenceException error)
                 {
-                    Console.WriteLine($"> [NullReferenceException] : Dictionary is null, maybe you want to make a new list or load a existing list from a file");
+                    Console.WriteLine($"> [NullReferenceException] : dictionary->{error.Message} Maybe you want to make a new list or load a existing list from a file");
                     Console.Write("Do you want to make a new list?(Y/N) : ");
 
                     string input = Console.ReadLine();
@@ -211,7 +218,7 @@
                 }
                 dictionary.RemoveAt(index);
             }
-            catch(ArgumentOutOfRangeException e)
+            catch(ArgumentOutOfRangeException error)
             {
                 Console.WriteLine("> [ArgumentOutOfRangeException] : Didn't find the word that is wanted to be removed, maybe the word doesn't exist in the dictionary, or you misspelled the word in swedish or english");
             }
