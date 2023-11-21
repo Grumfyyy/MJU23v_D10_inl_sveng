@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary = new List<SweEngGloss>();
+        static List<SweEngGloss> dictionary;
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -175,7 +175,26 @@
         {
             if(!string.IsNullOrWhiteSpace(sweEngGloss.word_swe) && !string.IsNullOrWhiteSpace(sweEngGloss.word_eng))
             {
-                dictionary.Add(sweEngGloss);
+                try
+                {
+                    dictionary.Add(sweEngGloss);
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine($"> [NullReferenceException] : Dictionary is null, maybe you want to make a new list or load a existing list from a file");
+                    Console.Write("Do you want to make a new list?(Y/N) : ");
+
+                    string input = Console.ReadLine();
+                    if (input.ToLower() == "y")
+                    {
+                        dictionary = new List<SweEngGloss>();
+                        dictionary.Add(sweEngGloss);
+                    }
+                    else if (input.ToLower() == "n")
+                    {
+                        return;
+                    }
+                }
             }
         }
 
