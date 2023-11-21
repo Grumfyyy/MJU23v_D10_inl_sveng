@@ -85,10 +85,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();  //FIXME: skriv ut variabelnamnet till ett mer förklarande namn, som t.ex. svenska_ordet
+                        string swedish_word = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();  //FIXME: skriv ut variabelnamnet till ett mer förklarande namn, som t.ex. engelska_ordet
-                        dictionary.Add(new SweEngGloss(s, e));  
+                        string english_word = Console.ReadLine();
+                        dictionary.Add(new SweEngGloss(swedish_word, english_word));  
                     }
                 }
                 else if (command == "delete")
@@ -106,14 +106,14 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();  //FIXME: skriv ut variabelnamnet till ett mer förklarande namn, som t.ex. svenska_ordet
+                        string swedish_word = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();   //FIXME: skriv ut variabelnamnet till ett mer förklarande namn, som t.ex. engelska_ordet
+                        string english_word = Console.ReadLine();
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == swedish_word && gloss.word_eng == english_word)
                                 index = i;
                         }
 
@@ -135,12 +135,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine(); //FIXME: skriv ut variabelnamnet till ett mer förklarande namn, som t.ex. input_svenska_ordet
+                        string input_word = Console.ReadLine();
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == input_word)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == input_word)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
