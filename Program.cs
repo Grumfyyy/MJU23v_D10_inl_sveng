@@ -22,6 +22,8 @@
 
             Console.WriteLine("Welcome to the dictionary app!");
             Console.WriteLine("Write 'help' to list available commands");
+            bool shouldRun = true;
+
             do
             {
                 Console.Write("> ");
@@ -29,8 +31,8 @@
                 string command = argument[0];
                 if (command == "quit")
                 {
-                    //FIXME: Detta stänger aldrig ner programmet, utan bara skriver ut till kommando prompten. Gör om programmet så den stänger ner vid kommandot "quit"
                     Console.WriteLine("Goodbye!");
+                    shouldRun = false;
                 }
                 else if (command == "load")
                 {
@@ -127,7 +129,7 @@
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
             }
-            while (true);
+            while (shouldRun == true);
         }
 
         private static void LoadFileGlossary(string fileName)
