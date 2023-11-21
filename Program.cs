@@ -51,11 +51,18 @@
                 }
                 else if (command == "new")
                 {
-                    //FIXME: Lägg till så att om man skickar in bara två argument, dvs typ new sol, så efterfrågar man engelska ordet också.
-
                     if (argument.Length == 3)
                     {
                         AddNewGlossToDictionary(new SweEngGloss(argument[1], argument[2]));
+                    }
+                    else if(argument.Length == 2)
+                    {
+                        string swedish_word = argument[1];
+
+                        Console.Write("Write word in English: ");
+                        string english_word = Console.ReadLine();
+
+                        AddNewGlossToDictionary(new SweEngGloss(swedish_word, english_word));
                     }
                     else if(argument.Length == 1)
                     {
