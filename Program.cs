@@ -147,14 +147,7 @@
                 }
                 else if(command == "help")
                 {
-                    //FIXME : Gör detta till en funktion, Help()
-
-                    Console.WriteLine("quit - closes the application");
-                    Console.WriteLine("load - load file glossary to the programs dictionary");
-                    Console.WriteLine("list - list the current dictionary");
-                    Console.WriteLine("new - add new glossary to the dictionary");
-                    Console.WriteLine("delete - delete one glossary from the dictionary");
-                    Console.WriteLine("translate - translate a glossary from the dictionary");
+                    HelpUser();
                 }
                 else
                 {
@@ -162,6 +155,16 @@
                 }
             }
             while (true);
+        }
+
+        private static void HelpUser()
+        {
+            Console.WriteLine("quit - closes the application");
+            Console.WriteLine("load - load file glossary to the programs dictionary");
+            Console.WriteLine("list - list the current dictionary");
+            Console.WriteLine("new - add new glossary to the dictionary");
+            Console.WriteLine("delete - delete one glossary from the dictionary");
+            Console.WriteLine("translate - translate a glossary from the dictionary");
         }
     }
 }
