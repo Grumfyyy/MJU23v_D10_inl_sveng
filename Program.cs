@@ -181,14 +181,21 @@
 
         private static void DeleteGlossFromDictionary(string swedish_word, string english_word)
         {
-            int index = -1;
-            for (int i = 0; i < dictionary.Count; i++)
+            try
             {
-                SweEngGloss gloss = dictionary[i];
-                if (gloss.word_swe == swedish_word && gloss.word_eng == english_word)
-                    index = i;
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == swedish_word && gloss.word_eng == english_word)
+                        index = i;
+                }
+                dictionary.RemoveAt(index);
             }
-            dictionary.RemoveAt(index); //FIXME : Fixa en check så att dictionary inte försöker radera vid indexet -1, utan att det måste vara värde >= 0
+            catch(ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("> [ArgumentOutOfRangeException] : Didn't find the word that is wanted to be removed, maybe the word doesn't exist in the dictionary, or you misspelled the word in swedish or english");
+            }
         }
     }
 }
