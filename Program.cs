@@ -51,6 +51,7 @@
                 }
                 else if (command == "new")
                 {
+                    //FIXME: Lägg till så att om man skickar in bara två argument, dvs typ new sol, så efterfrågar man engelska ordet också.
 
                     if (argument.Length == 3)
                     {
@@ -70,13 +71,7 @@
                 {
                     if (argument.Length == 3)
                     {
-                        int index = -1; 
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index); //FIXME : Fixa en check så att dictionary inte försöker radera vid indexet -1, utan att det måste vara värde >= 0
+                        DeleteGlossFromDictionary(argument[1], argument[2]);
                     }
                     else if (argument.Length == 1)
                     {
@@ -84,15 +79,8 @@
                         string swedish_word = Console.ReadLine();
                         Console.Write("Write word in English: ");
                         string english_word = Console.ReadLine();
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swedish_word && gloss.word_eng == english_word)
-                                index = i;
-                        }
 
-                        dictionary.RemoveAt(index); //FIXME : Fixa en check så att dictionary inte försöker radera vid indexet -1, utan att det måste vara värde >= 0
+                        DeleteGlossFromDictionary(swedish_word, english_word);
                     }
                 }
                 else if (command == "translate")
@@ -137,7 +125,7 @@
             //FIXME: Nedan så kollar vi inte om line är tomt, dvs om det är tomt skapa inte en ny glossa och lägg inte till glossan i dictionary
 
             string defaultPath = "..\\..\\..\\dict\\";
-            using (StreamReader sr = new StreamReader(defaultPath+fileName))
+            using (StreamReader sr = new StreamReader(defaultPath+fileName))    //FIXME: Lägg till så att jag kollar att pathen finns, om inte gör inget.
             {
                 dictionary = new List<SweEngGloss>(); // Empty it!
                 string line = sr.ReadLine();
@@ -171,6 +159,18 @@
         private static void AddNewGlossToDictionary(SweEngGloss sweEngGloss)
         {
             dictionary.Add(sweEngGloss);
+        }
+
+        private static void DeleteGlossFromDictionary(string swedish_word, string english_word)
+        {
+            int index = -1;
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                SweEngGloss gloss = dictionary[i];
+                if (gloss.word_swe == swedish_word && gloss.word_eng == english_word)
+                    index = i;
+            }
+            dictionary.RemoveAt(index); //FIXME : Fixa en check så att dictionary inte försöker radera vid indexet -1, utan att det måste vara värde >= 0
         }
     }
 }
