@@ -130,19 +130,26 @@
         private static void LoadFileGlossary(string fileName)
         {
             string defaultPath = "..\\..\\..\\dict\\";
-            using (StreamReader sr = new StreamReader(defaultPath+fileName))    //FIXME: Lägg till så att jag kollar att pathen finns, om inte gör inget.
+            try
             {
-                dictionary = new List<SweEngGloss>(); // Empty it!
-                string line = sr.ReadLine();
-                while (line != null)
+                using (StreamReader sr = new StreamReader(defaultPath + fileName))
                 {
-                    if(!string.IsNullOrWhiteSpace(line))
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
                     {
-                        SweEngGloss gloss = new SweEngGloss(line);
-                        AddNewGlossToDictionary(gloss);
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            SweEngGloss gloss = new SweEngGloss(line);
+                            AddNewGlossToDictionary(gloss);
+                        }
+                        line = sr.ReadLine();
                     }
-                    line = sr.ReadLine();
                 }
+            }
+            catch(FileNotFoundException e)
+            {
+                Console.WriteLine($"> [FileNotFoundException] : {e.Message}");
             }
         }
 
