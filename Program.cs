@@ -34,10 +34,6 @@
                 }
                 else if (command == "load")
                 {
-                    //FIXME: Här nedan har vi repetetiv kod som kan istället ha en metod, typ LoadFileData(string fileName)
-
-                    //FIXME: Nedan så kollar vi inte om line är tomt, dvs om det är tomt skapa inte en ny glossa och lägg inte till glossan i dictionary
-
                     if (argument.Length == 2)
                     {
                         LoadFileGlossary(argument[1]);
@@ -50,10 +46,7 @@
                 else if (command == "list")
                 {
                     //FIXME : Omvandla koden nedan i 'if'-satsen till en metod, ListGloss()
-                    foreach(SweEngGloss gloss in dictionary)
-                    {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
-                    }
+                    ListGlossary();
                 }
                 else if (command == "new")
                 {
@@ -140,6 +133,8 @@
 
         private static void LoadFileGlossary(string fileName)
         {
+            //FIXME: Nedan så kollar vi inte om line är tomt, dvs om det är tomt skapa inte en ny glossa och lägg inte till glossan i dictionary
+
             string defaultPath = "..\\..\\..\\dict\\";
             using (StreamReader sr = new StreamReader(defaultPath+fileName))
             {
@@ -162,6 +157,14 @@
             Console.WriteLine("new - add new glossary to the dictionary");
             Console.WriteLine("delete - delete one glossary from the dictionary");
             Console.WriteLine("translate - translate a glossary from the dictionary");
+        }
+
+        private static void ListGlossary()
+        {
+            foreach (SweEngGloss gloss in dictionary)
+            {
+                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+            }
         }
     }
 }
