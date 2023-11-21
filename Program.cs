@@ -129,8 +129,6 @@
 
         private static void LoadFileGlossary(string fileName)
         {
-            //FIXME: Nedan så kollar vi inte om line är tomt, dvs om det är tomt skapa inte en ny glossa och lägg inte till glossan i dictionary
-
             string defaultPath = "..\\..\\..\\dict\\";
             using (StreamReader sr = new StreamReader(defaultPath+fileName))    //FIXME: Lägg till så att jag kollar att pathen finns, om inte gör inget.
             {
@@ -138,8 +136,11 @@
                 string line = sr.ReadLine();
                 while (line != null)
                 {
-                    SweEngGloss gloss = new SweEngGloss(line);
-                    AddNewGlossToDictionary(gloss);
+                    if(!string.IsNullOrWhiteSpace(line))
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        AddNewGlossToDictionary(gloss);
+                    }
                     line = sr.ReadLine();
                 }
             }
@@ -165,7 +166,10 @@
         
         private static void AddNewGlossToDictionary(SweEngGloss sweEngGloss)
         {
-            dictionary.Add(sweEngGloss);
+            if(!string.IsNullOrWhiteSpace(sweEngGloss.word_swe) && !string.IsNullOrWhiteSpace(sweEngGloss.word_eng))
+            {
+                dictionary.Add(sweEngGloss);
+            }
         }
 
         private static void DeleteGlossFromDictionary(string swedish_word, string english_word)
