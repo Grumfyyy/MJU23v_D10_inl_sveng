@@ -222,6 +222,10 @@
             {
                 Console.WriteLine("> [ArgumentOutOfRangeException] : Didn't find the word that is wanted to be removed, maybe the word doesn't exist in the dictionary, or you misspelled the word in swedish or english");
             }
+            catch(NullReferenceException error)
+            {
+                Console.WriteLine($"> [NullReferenceException] : dictionary->{error.Message}");
+            }
         }
     }
 }
