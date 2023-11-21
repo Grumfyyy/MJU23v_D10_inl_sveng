@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary;    //FIXME: lägg till så att dictionary vid start är inte null.
+        static List<SweEngGloss> dictionary = new List<SweEngGloss>();
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -52,7 +52,7 @@
 
                     if (argument.Length == 3)
                     {
-                        AddNewGlossToDictionary(argument[1], argument[2]);
+                        AddNewGlossToDictionary(new SweEngGloss(argument[1], argument[2]));
                     }
                     else if(argument.Length == 1)
                     {
@@ -61,7 +61,7 @@
                         Console.Write("Write word in English: ");
                         string english_word = Console.ReadLine();
 
-                        AddNewGlossToDictionary(swedish_word, english_word); 
+                        AddNewGlossToDictionary(new SweEngGloss(swedish_word, english_word)); 
                     }
                 }
                 else if (command == "delete")
@@ -142,7 +142,7 @@
                 while (line != null)
                 {
                     SweEngGloss gloss = new SweEngGloss(line);
-                    dictionary.Add(gloss);
+                    AddNewGlossToDictionary(gloss);
                     line = sr.ReadLine();
                 }
             }
@@ -166,9 +166,9 @@
             }
         }
         
-        private static void AddNewGlossToDictionary(string swedish_word, string english_word)
+        private static void AddNewGlossToDictionary(SweEngGloss sweEngGloss)
         {
-            dictionary.Add(new SweEngGloss(swedish_word, english_word));
+            dictionary.Add(sweEngGloss);
         }
     }
 }
