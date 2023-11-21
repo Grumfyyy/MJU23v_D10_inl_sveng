@@ -80,6 +80,14 @@
                     {
                         DeleteGlossFromDictionary(argument[1], argument[2]);
                     }
+                    else if(argument.Length == 2)
+                    {
+                        string swedish_word = argument[1];
+                        Console.Write("Write word in English: ");
+                        string english_word = Console.ReadLine();
+
+                        DeleteGlossFromDictionary(swedish_word, english_word);
+                    }
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
